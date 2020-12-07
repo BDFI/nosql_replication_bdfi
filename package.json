@@ -1,0 +1,12 @@
+{
+    "name": "nosql_replicacion_bdfi",
+    "author": "apozohue10",
+    "license": "GNU",
+    "version": "0.0.0",
+    "info": {
+        "githubURL": "apozohue10/nosql_replicacion_bdfi",
+        "serverUrl": "https://autocorector.dit.upm.es/",
+        "courseId": "6851",
+        "assignmentId": "101489"
+    }
+}

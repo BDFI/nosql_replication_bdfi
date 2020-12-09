@@ -55,8 +55,8 @@ Crear 4 carpetas para que allí se almacenen los datos de cada una de las instan
 
 
     ```
-    $ mkdir data
-    $ mkdir data/data1 data/data2 data/data3 data/data4
+    $ mkdir data_patients
+    $ mkdir data_patients/data1 data_patients/data2 data_patients/data3 data_patients/data4
     ```
 
 
@@ -71,12 +71,12 @@ Crear 4 carpetas para que allí se almacenen los datos de cada una de las instan
     En Ubuntu ejecutamos cada una de las siguientes instrucciones en un terminal distinto:
 
     ```
-    mongod --port 27001 --replSet my-mongo-set --dbpath ./data/data1 --oplogSize 50
-    mongod --port 27002 --replSet my-mongo-set --dbpath ./data/data2 --oplogSize 50
-    mongod --port 27003 --replSet my-mongo-set --dbpath ./data/data3 --oplogSize 50
-    mongod --port 27004 --replSet my-mongo-set --dbpath ./data/data4 --oplogSize 50
+    mongod --port 27001 --replSet my-mongo-set --dbpath ./data_patients/data1 --oplogSize 50
+    mongod --port 27002 --replSet my-mongo-set --dbpath ./data_patients/data2 --oplogSize 50
+    mongod --port 27003 --replSet my-mongo-set --dbpath ./data_patients/data3 --oplogSize 50
+    mongod --port 27004 --replSet my-mongo-set --dbpath ./data_patients/data4 --oplogSize 50
     ```
-    Si teneis otro Sistema Operativo, como Windows, para ejecutar mongod debeis abrir una PowerShell e ir al directorio donde teneis almacenado mongod.exe. Además, deben indicar la ruta absoluta de donde se ecuentra la carpeta data, por ejemplo si el repositorio ha sido clonado en el escritorio la instrucción a ejecutar sería similar a esta: PS C:\Archivos de programa\MongoDB\Server\4.2\bin> .\mongod --port 27001 --replSet my-mongo-set —dbpath C:\Users\usuarioX\Desktop\bbdd-practica-replicacion\data\data1 --oplogSize 50
+    Si teneis otro Sistema Operativo, como Windows, para ejecutar mongod debeis abrir una PowerShell e ir al directorio donde teneis almacenado mongod.exe. Además, deben indicar la ruta absoluta de donde se encuentra la carpeta data_patients, por ejemplo si el repositorio ha sido clonado en el escritorio la instrucción a ejecutar sería similar a esta: PS C:\Archivos de programa\MongoDB\Server\4.2\bin> .\mongod --port 27001 --replSet my-mongo-set —dbpath C:\Users\usuarioX\Desktop\bbdd-practica-replicacion\data_patients\data1 --oplogSize 50
     
 2. Se creará la réplica, indicando que todos los servidores están en el mismo conjunto, para ello nos conectamos al servidor que va a actuar como primario:
 
@@ -107,7 +107,7 @@ Crear 4 carpetas para que allí se almacenen los datos de cada una de las instan
 
 9. Verificar que los datos se han escrito tanto en el primario como en los secundarios y que además se respeta el delay en el servidor de mongo "localhost:27004”
 
-10. Sin detener la ejecución de las 4 instancias de mongo. Añadir un una quinta instancia de mongo al replicaset(localhost:27005). Esta Instancia debe estar configurado como arbiterOnly. Nuevamente cree un directorio especifico para esta instancia (Ej: data/data5), arranque una nueva instancia con mongod en otro terminal y consulte las transparencias de clase para ver como incluir un arbitro en el replicaSet.
+10. Sin detener la ejecución de las 4 instancias de mongo. Añadir un una quinta instancia de mongo al replicaset(localhost:27005). Esta Instancia debe estar configurado como arbiterOnly. Nuevamente cree un directorio especifico para esta instancia (Ej: data_patients/data5), arranque una nueva instancia con mongod en otro terminal y consulte las transparencias de clase para ver como incluir un arbitro en el replicaSet.
 
 ## 6. Prueba de la práctica 
 

@@ -86,6 +86,33 @@ Crear 4 carpetas para que allí se almacenen los datos de cada una de las instan
 
 3. Configurar el replica set para que las 4 instancias que se levantaron anteriormente sean parte del replicaset my-mongo-set. Busque en las transparencias de clase como inicializar el replica set con varias intancias a la vez. Debe definir con prioridad igual a 900 al servidor principal ("localhost:27001") y a la cuarta instancia de mongodb ("localhost:27004") se debe configurar para que tenga una prioridad de 0 y que el tiempo de retardo de replicación esté limitado a 60 seg.
 
+    ```
+    rs.initiate({ _id: "my-mongo-set",
+        members: [ 
+            { _id : 0, host : "mongodb1:27001", priority: 900},  
+            { _id : 1, host : "mongodb2:27001" },
+            { _id : 2, host : "mongodb3:27001" }, 
+            { _id : 3, host : "mongodb4:27001", priority: 0, slaveDelay: 60},
+        ]
+    })
+  
+    rs.initiate({ _id: "my-mongo-set",
+        members: [ 
+            { _id : 0, host : "mongodb1.net:27001" },  
+            { _id : 1, host : "mongodb2.net:27002" },
+            { _id : 2, host : "mongodb3.net:27003" }, 
+            { _id : 3, host : "mongodb4.net:27004" },
+        ]
+    }) 
+  
+    rs.add("mongodb2:27002")
+    rs.add("mongodb3:27003")
+    rs.add("mongodb4:27004")
+   
+   rs.status()
+   rs.config()
+    ```
+
 4. A continuación, en el terminal y dentro del directorio donde hemos clonado el código de la práctica, ejecutamos los seeders para que añadir una serie de pacientes por defecto a nuestro replicaSet:
 
     ```

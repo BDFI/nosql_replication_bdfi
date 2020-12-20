@@ -52,7 +52,7 @@ Una vez dentro de la carpeta, se instalan las dependencias con:
     ```
 
 Crear 4 carpetas para que allí se almacenen los datos de cada una de las instancias de mongo que se desplegarán:
-
+! ! ! Importante: crear data_patients fuera del repositorio clonado. Si la creamos dentro de nosql_replicacion_bdfi no nos dejará subir la nota al final.
 
     ```
     $ mkdir data_patients
@@ -69,7 +69,7 @@ Crear 4 carpetas para que allí se almacenen los datos de cada una de las instan
     - Indicar que se arranquen en modo replicaSet e indicando el id de dicho replica set.
 
     En Ubuntu ejecutamos cada una de las siguientes instrucciones en un terminal distinto:
-
+    
     ```
     mongod --port 27001 --replSet my-mongo-set --dbpath ./data_patients/data1 --oplogSize 50
     mongod --port 27002 --replSet my-mongo-set --dbpath ./data_patients/data2 --oplogSize 50
@@ -122,7 +122,26 @@ Crear 4 carpetas para que allí se almacenen los datos de cada una de las instan
     
 5. Compruebe que los pacientes se han guardado en cada una de los Mongos desplegados accediendo a la shell de cada uno de ellos y ejecute las operaciones que considere. Recuerde que, para poder rejecutar operaciones de lectura dentro de la shell de mongo de los nodos secundarios, debe ejecutar rs.slaveOk() previamente.
 
+Entramos en el secundario para ver que la tabla está dentro: 
+
+    ```
+    mongo --host localhost:27002
+    rs.slaveOk()
+    show dbs
+    use bio_bbdd
+    show tables
+    ```
+    
+Podemos repetir lo mismo con los demás secundarios para confirmar que se ha replicado en todos
+    
 6. Una vez comprendido el funcionamiento del escenario debe establecerse la conexión a la réplica desde la aplicación. Para ello, el alumnos debe modificar la conexión en el fichero rest_server.js e incluir los valores correspondientes para que la aplicación se conecte a la réplica “my-mongo-set” en vez de a una única instancia de Mongo. Revise las transparencias de clase de ReplicaSet para ver como hacerlo con Mongoose.
+
+Sustituir linea que empieza por "await mongoose.connect..." con:
+
+    ```
+    await mongoose.connect('mongodb://localhost:27001,localhost:27002,localhost:27003,localhost:27004/bio_bbdd/?replicaSet=my-mongo-set',{ useNewUrlParser: true,  useUnifiedTopology: true })
+
+    ```
 
 7. Ejecutar el servidor de la aplicación web de gestión de pacientes
 
@@ -132,9 +151,24 @@ Crear 4 carpetas para que allí se almacenen los datos de cada una de las instan
 
 8. Insertar un nuevo paciente cuyo DNI sea el token del moodle del alumno por medio de la aplicación web de gestión de pacientes.
 
+Acceder a través del navegador web a la dirección:
+    ```
+    http://localhost:8001/
+    ```
+Una vez ahí, nos añadimos como pacientes con el token como DNI
+
 9. Verificar que los datos se han escrito tanto en el primario como en los secundarios y que además se respeta el delay en el servidor de mongo "localhost:27004”
 
+De nuevo, nos conectamos a los secundarios para comprobar que se ha añadido nuestro registro a la base de datos.
+
 10. Sin detener la ejecución de las 4 instancias de mongo. Añadir un una quinta instancia de mongo al replicaset(localhost:27005). Esta Instancia debe estar configurado como arbiterOnly. Nuevamente cree un directorio especifico para esta instancia (Ej: data_patients/data5), arranque una nueva instancia con mongod en otro terminal y consulte las transparencias de clase para ver como incluir un arbitro en el replicaSet.
+
+Añadimos el Árbitro desde el mongo del primario y en una nueva consola lo arrancaremos una vez añadido:
+
+    ```
+    rs.addArb("localhost:27005")
+    mongod --port 27005 --replSet my-mongo-set —dbpath ./data_patients/data4 --oplogSize 50
+    ```
 
 ## 6. Prueba de la práctica 
 

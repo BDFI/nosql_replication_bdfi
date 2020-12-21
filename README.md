@@ -89,10 +89,10 @@ Crear 4 carpetas para que allí se almacenen los datos de cada una de las instan
     ```
     rs.initiate({ _id: "my-mongo-set",
         members: [ 
-            { _id : 0, host : "mongodb1:27001", priority: 900},  
-            { _id : 1, host : "mongodb2:27002" },
-            { _id : 2, host : "mongodb3:27003" }, 
-            { _id : 3, host : "mongodb4:27004", priority: 0, slaveDelay: 60}
+            { _id : 0, host : "localhost:27001", priority: 900},  
+            { _id : 1, host : "localhost:27002" },
+            { _id : 2, host : "localhost:27003" }, 
+            { _id : 3, host : "localhost:27004", priority: 0, slaveDelay: 60}
         ]
     })
   

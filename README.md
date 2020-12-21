@@ -90,27 +90,12 @@ Crear 4 carpetas para que allí se almacenen los datos de cada una de las instan
     rs.initiate({ _id: "my-mongo-set",
         members: [ 
             { _id : 0, host : "mongodb1:27001", priority: 900},  
-            { _id : 1, host : "mongodb2:27001" },
-            { _id : 2, host : "mongodb3:27001" }, 
-            { _id : 3, host : "mongodb4:27001", priority: 0, slaveDelay: 60},
+            { _id : 1, host : "mongodb2:27002" },
+            { _id : 2, host : "mongodb3:27003" }, 
+            { _id : 3, host : "mongodb4:27004", priority: 0, slaveDelay: 60},
         ]
     })
   
-    rs.initiate({ _id: "my-mongo-set",
-        members: [ 
-            { _id : 0, host : "mongodb1.net:27001" },  
-            { _id : 1, host : "mongodb2.net:27002" },
-            { _id : 2, host : "mongodb3.net:27003" }, 
-            { _id : 3, host : "mongodb4.net:27004" },
-        ]
-    }) 
-  
-    rs.add("mongodb2:27002")
-    rs.add("mongodb3:27003")
-    rs.add("mongodb4:27004")
-   
-   rs.status()
-   rs.config()
     ```
 
 4. A continuación, en el terminal y dentro del directorio donde hemos clonado el código de la práctica, ejecutamos los seeders para que añadir una serie de pacientes por defecto a nuestro replicaSet:

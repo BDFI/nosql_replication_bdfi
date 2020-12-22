@@ -152,7 +152,7 @@ Añadimos el Árbitro desde el mongo del primario y en una nueva consola lo arra
 
     ```
     rs.addArb("localhost:27005")
-    mongod --port 27005 --replSet my-mongo-set —dbpath ./data_patients/data4 --oplogSize 50
+    mongod --port 27005 --replSet my-mongo-set —dbpath ./data_patients/data5 --oplogSize 50
     ```
 
 ## 6. Prueba de la práctica 

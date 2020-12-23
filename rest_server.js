@@ -9,7 +9,7 @@ const app = express();
 const mongoose = require('mongoose');
 (async () => {
   try {
-    await mongoose.connect('mongodb://localhost/bio_bbdd',{ useNewUrlParser: true, useUnifiedTopology: true })
+    await mongoose.connect('mongodb://localhost:27001,localhost:27002,localhost:27003,localhost:27004/bio_bbdd/?replicaSet=my-mongo-set',{ useNewUrlParser: true,  useUnifiedTopology: true })
     console.log('Connected to Mongo 1!')
   } catch (err) {
     console.log('Error connecting to Database: ' + err)
